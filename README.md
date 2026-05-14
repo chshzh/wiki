@@ -4,10 +4,10 @@ This repository contains a Karpathy-style LLM Wiki: compact, interlinked markdow
 
 ## Maintenance Workflow
 
-This wiki is maintained using the following skills from the local `.claude` workspace:
+This wiki is maintained using the following skills:
 
-- `/Users/chsh/.claude/skills/chsh-sk-llm-wiki/SKILL.md`
-- `/Users/chsh/.claude/skills/chsh-sk-llm-wiki-review/SKILL.md`
+- `https://github.com/chshzh/claude/tree/main/skills/chsh-sk-llm-wiki`
+- `https://github.com/chshzh/claude/tree/main/skills/chsh-sk-llm-wiki-review`
 
 These skills define ingestion, querying, linting/review, and curation workflows for long-lived technical knowledge.
 
