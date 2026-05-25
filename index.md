@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-05-13 | Total pages: 20
+> Last updated: 2026-05-26 | Total pages: 20
 
 ## Entities
 
@@ -22,11 +22,11 @@
 ### AI / Dev Tools
 - [cursor-skills-and-agents](concepts/cursor-skills-and-agents.md) — Skills vs agents: invocation model, delegation pattern, design rules for `SKILL.md` and `~/.claude/agents/`
 - [deepseek-claude-code](concepts/deepseek-claude-code.md) — DeepSeek Anthropic API 兼容层直连 Claude Code：配置、模型策略、验证
+- [my-ncs-claude](concepts/my-ncs-claude.md) — NCS v3.3.0 workspace reference: repo layout, build targets, embedded dev tools (GPIO Shell, JLink, Saleae, PPK2, Router, Memfault)
 - [svg-pptx-agent-generation](concepts/svg-pptx-agent-generation.md) — AI Agent 视觉内容生成完整工作流：SVG（纯 XML 手写）→ PPTX（PptxGenJS），以电车运行管理 PPT 为案例
 
 ### Homelab / Networking
 - [hermes-architecture](concepts/hermes-architecture.md) — Hermes Agent 源码架构与功能全景
-- [hermes-file-map-customization](concepts/hermes-file-map-customization.md) — Hermes file map: where repos, data, and config live on disk; which files you edit vs auto-managed
 - [hermes-docker-compose-deployment](concepts/hermes-docker-compose-deployment.md) — Hermes Agent + WebUI Docker Compose 部署：init 容器权限修正、三服务编排、NAS 持久化（~5 分钟阅读）
 - [linux-vm-docker-permission](concepts/linux-vm-docker-permission.md) — Linux VM / Docker UID 权限对齐：UID 不匹配根因、五种解决模式、排错清单
 - [dns-over-https-doh](concepts/dns-over-https-doh.md) — DNS-over-HTTPS: how it protects browsing in office environments, threat model, DoH vs DoT, setup guide

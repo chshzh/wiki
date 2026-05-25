@@ -3,7 +3,29 @@
 > Chronological record of all wiki actions. Append-only.
 > Actions: ingest, update, query, lint, create, archive, delete
 
-## [2026-05-10] update | EEDP platform — added implementation strategy
+## [2026-05-26] lint | Wiki review — 2 concrete issues, 11 orphans
+- **Report:** skills/chsh-ag-llm-wiki-review/report-2026-05-26.md
+- **P0:** my-ncs-claude.md — 6 broken markdown links to external repo files → converted to plain text paths
+- **P1:** hermes-file-map-customization.md — listed in index but file not found → removed from index.md
+- **P1:** my-ncs-claude.md — existed on disk but missing from index → added to index.md under AI/Dev Tools
+- **Updated:** index.md — added my-ncs-claude, removed hermes-file-map-customization (page count unchanged at 20)
+- **Orphans:** 11/20 (55%) — expected for young wiki, no auto-fixes
+- **No stale content, no source drift, no contested pages**
+
+## [2026-05-26] update | EEDP v0.7 — added Serial Terminal module
+- **Updated:** concepts/eedp-platform.md — added "2. Serial Terminal" (ttyd-based Web UART, 4 ports), renumbered 2→8: HW Ctrl→Serial Terminal→JLink→PPK2→Saleae→Router→Wireshark→Web. Total 8 modules.
+- **Updated:** raw/assets/eedp-architecture-v0.3.svg — redrawn for 8-module layout, added Serial Terminal box, repositioned PPK2 and Wireshark
+- **Created:** /mnt/CharlieII/eedp-intro.html — reader-friendly intro article (7 chapters, interactive SVG, FAQ)
+
+## [2026-05-25] update | EEDP — added PPK2 as 6th module
+- **Updated:** concepts/eedp-platform.md — added §3. Power Profiler / PPK2 (current measurement, 200nA–1A), renumbered modules 3→6, added to target hardware table, MCP ecosystem table, CLAUDE.md template, eedp-controller.py template, load table, open questions. Bumped to v0.5.
+- **Created:** raw/assets/eedp-ppk2-workflow.html — standalone PPK2 workflow page with connection diagram, CLI commands, use cases, EEDP integration points
+- **Updated:** index.md — date bump (no page count change)
+
+## [2026-05-25] update | EEDP v0.6 — added Wireshark/tshark
+- **Updated:** concepts/eedp-platform.md — added "6. Network Protocol Analysis / Wireshark" module (tshark + tcpdump via Router SSH), updated tool table + MCP index + version history. 7 modules total.
+- **Updated:** raw/assets/eedp-architecture-v0.3.svg — added Wireshark module block
+- **Key integration:** tshark CLI on PC, tcpdump remote capture via Router SSH, paired with Router Control for WiFi connect/disconnect frame analysis
 - **Updated:** concepts/eedp-platform.md — added "实施策略" section: 3-layer architecture (CLAUDE.md + scripts/ + on-demand MCP), file structure, startup self-test flow, load table. Bumped to v0.4.
 - **Asset:** wiki/raw/assets/eedp-architecture-v0.3.svg — standalone SVG for GitHub/Obsidian rendering
 

@@ -16,6 +16,8 @@ This is a Nordic **nRF Connect SDK v3.3.0** west workspace.
 SDK source repos (`nrf/`, `zephyr/`, `modules/`, etc.) are read-only upstream code.
 The two custom application projects are the primary development targets.
 
+Related pages: [eedp-platform](eedp-platform.md) · [ncs-app-versioning](ncs-app-versioning.md) · [embedded-system-general-debugging](embedded-system-general-debugging.md)
+
 ---
 
 ## Repository Layout
@@ -44,13 +46,7 @@ Four Wi-Fi modes: SoftAP, STA, P2P_GO (default), P2P_CLIENT. Mode stored in NVS.
 | nRF7002DK | `nrf7002dk/nrf5340/cpuapp` | — |
 | nRF54LM20DK + nRF7002EB2 | `nrf54lm20dk/nrf54lm20a/cpuapp` | `-DSHIELD=nrf7002eb2` |
 
-Docs: [`nordic-wifi-webdash/docs/`](nordic-wifi-webdash/docs/)
-
-| Path | Contents |
-|------|---------|
-| `docs/pm-prd/` | Product requirements |
-| `docs/dev-specs/` | Architecture and module specs |
-| `docs/qa-test/` | QA reports and test plans |
+Docs: `nordic-wifi-webdash/docs/` (file path, project root)
 
 ### nordic-wifi-memfault
 
@@ -62,7 +58,7 @@ Requires `overlay-app-memfault-project-info.conf` with `CONFIG_MEMFAULT_NCS_PROJ
 | nRF7002DK | `nrf7002dk/nrf5340/cpuapp` | `-DEXTRA_CONF_FILE="overlay-app-memfault-project-info.conf"` |
 | nRF54LM20DK + nRF7002EB2 | `nrf54lm20dk/nrf54lm20a/cpuapp` | `-DSHIELD=nrf7002eb2 -DEXTRA_CONF_FILE="..."` |
 
-Docs: [`nordic-wifi-memfault/README.md`](nordic-wifi-memfault/README.md)
+Docs: `nordic-wifi-memfault/README.md` (file path, project root)
 
 ---
 
@@ -89,12 +85,12 @@ Invoke these skills (by name) for NCS-specific tasks:
 
 ## Code Intelligence (GitNexus)
 
-Each repo has its own GitNexus index. See the per-project `AGENTS.md` for repo-specific
-resources and functional-area skill files:
-- [`nrf/AGENTS.md`](nrf/AGENTS.md) — sdk-nrf (152 k symbols)
-- [`zephyr/AGENTS.md`](zephyr/AGENTS.md) — zephyr (518 k symbols) — **read-only upstream**
-- [`nordic-wifi-webdash/AGENTS.md`](nordic-wifi-webdash/AGENTS.md) — 708 symbols
-- [`nordic-wifi-memfault/AGENTS.md`](nordic-wifi-memfault/AGENTS.md) — 841 symbols
+Each repo has its own GitNexus index. See the per-project `AGENTS.md` for repo-specific resources and functional-area skill files:
+
+- `nrf/AGENTS.md` — sdk-nrf (152 k symbols)
+- `zephyr/AGENTS.md` — zephyr (518 k symbols) — **read-only upstream**
+- `nordic-wifi-webdash/AGENTS.md` — 708 symbols
+- `nordic-wifi-memfault/AGENTS.md` — 841 symbols
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus update` in the repo root.
 
