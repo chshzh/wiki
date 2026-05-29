@@ -13,7 +13,7 @@ confidence: high
 Lessons from operating a rolling CI/CD pipeline for NCS firmware projects.
 Covers: monitoring run status, common failure patterns, pre-built firmware flash-and-test loop.
 
-See also: [embedded-system-general-debugging](embedded-system-general-debugging.md), [mcp-nrflow-tools](mcp-nrflow-tools.md)
+See also: [embedded-system-general-debugging](embedded-system-general-debugging.md), [mcp-nordic-mcp-tools](mcp-nordic-mcp-tools.md)
 
 ---
 

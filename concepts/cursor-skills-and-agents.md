@@ -164,6 +164,6 @@ explicitly (version, workflow letter, pre-conditions) in the task string.
 
 ## Related Pages
 
-- [mcp-nrflow-tools](mcp-nrflow-tools.md) — MCP tools pattern (complementary invocation mechanism)
+- [mcp-nordic-mcp-tools](mcp-nordic-mcp-tools.md) — MCP tools pattern (complementary invocation mechanism)
 - [hermes-architecture](hermes-architecture.md) — Hermes agent framework that hosts skills
 - [eedp-platform](eedp-platform.md) — broader embedded AI agent platform context

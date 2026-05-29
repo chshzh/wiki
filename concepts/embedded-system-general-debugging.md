@@ -15,7 +15,7 @@ nRF54LM20DK + nRF7002 EB-II (NCS v3.3.0). The session started from zero (no MSPI
 bus backend existed) and ended with a stable 32 MHz Quad-SPI connection that passes
 20/20 consecutive WiFi connect cycles.
 
-See also: [ncs-app-versioning](ncs-app-versioning.md), [mcp-nrflow-tools](mcp-nrflow-tools.md)
+See also: [ncs-app-versioning](ncs-app-versioning.md), [mcp-nordic-mcp-tools](mcp-nordic-mcp-tools.md)
 
 ---
 
@@ -154,7 +154,7 @@ When adding a new bus backend to an existing driver stack:
 ## 10. UART Connection — Always Use nordicsemi_uart_monitor.py
 
 **Preferred**: Use `nordicsemi_uart_monitor.py` from the `nordicsemi_uart_monitor.py`
-resource (loaded via `mcp_nrflow_nordicsemi_workflow_ncs`). It handles reconnection,
+resource (loaded via `mcp_nordic-mcp_nordicsemi_workflow_ncs`). It handles reconnection,
 timestamps, and log capture without manual serial port management.
 
 ```bash
