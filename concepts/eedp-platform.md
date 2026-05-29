@@ -1,11 +1,12 @@
 ---
-title: EEDP — Embodied Embedded Development Platform
+title: NCS v3.3.0 Workspace & EEDP Platform
 created: 2026-05-10
-updated: 2026-05-13
+updated: 2026-05-29
 type: concept
-tags: [embedded, ncs, nrf54, wifi, test-automation, ai-agent, hardware, gpio]
-confidence: medium
-sources: []
+tags: [ncs, nrf54, embedded, ai-agent, claude, workflow, tools, ppk2, power, gpio, saleae, memfault, wifi, test-automation, hardware]
+confidence: high
+sources:
+  - /opt/nordic/ncs/v3.3.0/CLAUDE.md
 ---
 
 # EEDP — Embodied Embedded Development Platform
@@ -18,7 +19,76 @@ sources: []
 
 "Embodied" 意味着 AI 不仅存在于数字世界（写代码、读 log），而是通过物理接口（GPIO/JLink/Saleae）与真实硬件直接交互——像人一样动手操作开发板。
 
-相关页面：[embedded-system-general-debugging](embedded-system-general-debugging.md) · [github-actions-ncs-ci](github-actions-ncs-ci.md) · [mcp-nrflow-tools](mcp-nrflow-tools.md) · [cursor-skills-and-agents](cursor-skills-and-agents.md)
+相关页面：[ncs-app-versioning](ncs-app-versioning.md) · [embedded-system-general-debugging](embedded-system-general-debugging.md) · [github-actions-ncs-ci](github-actions-ncs-ci.md) · [mcp-nordic-mcp-tools](mcp-nordic-mcp-tools.md) · [cursor-skills-and-agents](cursor-skills-and-agents.md)
+
+---
+
+## NCS v3.3.0 Workspace
+
+This is a Nordic **nRF Connect SDK v3.3.0** west workspace.
+SDK source repos (`nrf/`, `zephyr/`, `modules/`, etc.) are read-only upstream code.
+The two custom application projects are the primary development targets.
+
+### Repository Layout
+
+| Folder | Description |
+|--------|-------------|
+| `nrf/` | nRF Connect SDK — libraries, samples, subsystems |
+| `zephyr/` | Zephyr RTOS |
+| `modules/` | Third-party modules (crypto, HAL, debug, fs …) |
+| `nrfxlib/` | Nordic binary/source libraries |
+| `bootloader/mcuboot/` | MCUboot bootloader |
+| `nordic-wifi-webdash/` | **Custom app** — browser-based Wi-Fi dashboard |
+| `nordic-wifi-memfault/` | **Custom app** — Memfault observability reference |
+
+### Custom Application Projects
+
+#### nordic-wifi-webdash
+
+Browser dashboard (buttons, LEDs, system info) served from device flash.
+Four Wi-Fi modes: SoftAP, STA, P2P_GO (default), P2P_CLIENT. Mode stored in NVS.
+
+| Board | West build target | Extra args |
+|-------|-------------------|------------|
+| nRF7002DK | `nrf7002dk/nrf5340/cpuapp` | — |
+| nRF54LM20DK + nRF7002EB2 | `nrf54lm20dk/nrf54lm20a/cpuapp` | `-DSHIELD=nrf7002eb2` |
+
+Docs: `nordic-wifi-webdash/docs/` (file path, project root)
+
+#### nordic-wifi-memfault
+
+Memfault integration reference: crash reporting, OTA, metrics, Wi-Fi provisioning over BLE.
+Requires `overlay-app-memfault-project-info.conf` with `CONFIG_MEMFAULT_NCS_PROJECT_KEY` set.
+
+| Board | West build target | Extra args |
+|-------|-------------------|------------|
+| nRF7002DK | `nrf7002dk/nrf5340/cpuapp` | `-DEXTRA_CONF_FILE="overlay-app-memfault-project-info.conf"` |
+| nRF54LM20DK + nRF7002EB2 | `nrf54lm20dk/nrf54lm20a/cpuapp` | `-DSHIELD=nrf7002eb2 -DEXTRA_CONF_FILE="..."` |
+
+Docs: `nordic-wifi-memfault/README.md` (file path, project root)
+
+### Skills Reference
+
+Invoke these skills (by name) for NCS-specific tasks:
+
+| Task | Skill |
+|------|-------|
+| Build / flash / west commands | `chsh-sk-ncs-env` |
+| Full project lifecycle (PRD → Specs → Code → QA) | `chsh-sk-ncs-0-workflow` |
+| Author or update a PRD | `chsh-sk-ncs-1-prd` |
+| Write engineering specs from a PRD | `chsh-sk-ncs-2-spec` |
+| Implement code from specs | `chsh-sk-ncs-3.1-coding` |
+| Debug firmware (UART, crashes, loop tests) | `chsh-sk-ncs-3.2-debug` |
+| Optimize RAM/Flash usage | `chsh-sk-ncs-3.3-memopt` |
+| Format C/C++ with clang-format | `chsh-sk-ncs-clang-format` |
+| Verification (code review, build) | `chsh-sk-ncs-4.1-verification` |
+| Validation (hardware tests) | `chsh-sk-ncs-4.2-validation` |
+| Migrate app to a newer NCS version | `chsh-sk-ncs-migrate` |
+| Wi-Fi UDP throughput benchmarking | `chsh-sk-ncs-tc-wifi-throughput` |
+| Memfault OTA + observability | `chsh-sk-memfault` |
+| Git commit + push | `chsh-sk-git-commit` |
+
+---
 
 ## 架构
 

@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-05-26 | Total pages: 20
+> Last updated: 2026-05-29 | Total pages: 20
 
 ## Entities
 
@@ -11,18 +11,17 @@
 ## Concepts
 
 ### Nordic / NCS
-- [eedp-platform](concepts/eedp-platform.md) — Embodied Embedded Development Platform：AI 操控物理硬件（按键/LED/JLink/Saleae/路由器）的嵌入式开发平台
+- [eedp-platform](concepts/eedp-platform.md) — NCS v3.3.0 workspace reference (repo layout, build targets, skills) + EEDP: AI-controlled physical hardware (GPIO/JLink/Saleae/PPK2/Router) for embedded testing
 - [ncs-app-versioning](concepts/ncs-app-versioning.md) — Four-field `MAJOR.MINOR.PATCH.APP` versioning scheme for NCS workspace apps
 - [memfault-version-requirements](concepts/memfault-version-requirements.md) — Memfault's allowed characters, ordering algorithm, and `v`-prefix caveat
 - [embedded-system-general-debugging](concepts/embedded-system-general-debugging.md) — Debugging lessons from sQSPI driver implementation: barriers, multi-device testing, loop scripts
-- [mcp-nrflow-tools](concepts/mcp-nrflow-tools.md) — Introduction to mcp.nrflow MCP tools and best practices for NCS build/flash/UART workflows
+- [mcp-nordic-mcp-tools](concepts/mcp-nordic-mcp-tools.md) — Nordic MCP server tools and best practices for NCS build/flash/UART workflows
 - [github-actions-ncs-ci](concepts/github-actions-ncs-ci.md) — GitHub Actions CI for NCS firmware: Docker container approach, rolling releases, pre-built firmware test loop, idempotent git am, artifact naming, manifest pitfalls
 - [west-update-internals](concepts/west-update-internals.md) — How `west update` works: workspace discovery, manifest resolution, manifest-rev branch, detached HEAD semantics, floating vs pinned revisions
 
 ### AI / Dev Tools
 - [cursor-skills-and-agents](concepts/cursor-skills-and-agents.md) — Skills vs agents: invocation model, delegation pattern, design rules for `SKILL.md` and `~/.claude/agents/`
 - [deepseek-claude-code](concepts/deepseek-claude-code.md) — DeepSeek Anthropic API 兼容层直连 Claude Code：配置、模型策略、验证
-- [my-ncs-claude](concepts/my-ncs-claude.md) — NCS v3.3.0 workspace reference: repo layout, build targets, embedded dev tools (GPIO Shell, JLink, Saleae, PPK2, Router, Memfault)
 - [svg-pptx-agent-generation](concepts/svg-pptx-agent-generation.md) — AI Agent 视觉内容生成完整工作流：SVG（纯 XML 手写）→ PPTX（PptxGenJS），以电车运行管理 PPT 为案例
 
 ### Homelab / Networking
@@ -37,5 +36,6 @@
 ## Comparisons
 
 - [cracen-vs-oberon-tls](comparisons/cracen-vs-oberon-tls.md) — CRACEN (hardware, nRF54LM20DK) vs Oberon software mbedTLS (nRF7002DK): execution model, stack depth, KMU, speed trade-offs for TLS
+- [memfault-mcp-vs-cli](comparisons/memfault-mcp-vs-cli.md) — Memfault MCP server (read-only fleet query, crash decode) vs Memfault CLI (symbol upload, OTA release, cohort deploy): capability matrix + combined release verification workflow
 
 ## Queries

@@ -3,6 +3,28 @@
 > Chronological record of all wiki actions. Append-only.
 > Actions: ingest, update, query, lint, create, archive, delete
 
+## [2026-05-29] lint | Wiki review — 1 P0 fixed, 0 P1, 14 P2 (info)
+- **P0 fixed:** concepts/eedp-platform.md — corrupted frontmatter opener (`chsh-sk-ncs-test ---`) stripped; YAML now parses correctly.
+- **P2 (info):** 14 pages have `sources: []` — valid per SCHEMA.md for session-derived content.
+- **P2 (info):** 8 pages over 200 lines — no splits applied; all well-structured.
+- **No orphans, no broken links, no index gaps, no stale content.**
+- **Report:** skills/chsh-sk-llm-wiki-review/report-2026-05-29.md
+
+
+- **Renamed:** concepts/mcp-nrflow-tools.md → concepts/mcp-nordic-mcp-tools.md
+- **Updated links (6 files):** index.md, comparisons/memfault-mcp-vs-cli.md, concepts/eedp-platform.md, concepts/github-actions-ncs-ci.md, concepts/embedded-system-general-debugging.md, concepts/cursor-skills-and-agents.md
+- **Cleaned:** Removed remaining `mcp.nrflow` table column headers inside the page (→ "Nordic MCP"), updated server history note to omit old server name
+- **log.md historical entries preserved** (append-only, factual record of 2026-05-29 session)
+
+## [2026-05-29] update + create | nordic-mcp MCP consolidation + Memfault MCP wiki
+- **mcp.json:** Removed `nrflow` server (confirmed byte-identical duplicate of `nordic-mcp` — same 6 tools, 3 resources, 20 knowledge sources). Removed `nordic-semiconductor-docs` (kapa.ai, single tool `search_nordic_semi_knowledge` — corpus covered by `mcp_nordic-mcp_nordicsemi_search_sources`).
+- **Updated:** concepts/mcp-nrflow-tools.md — renamed title/frontmatter to `mcp.nordic-mcp`, replaced all `mcp_nrflow_*` tool references with `mcp_nordic-mcp_*`, added server history note (nrflow + nordic-semiconductor-docs removal rationale), added cross-reference to new comparison page.
+- **Created:** comparisons/memfault-mcp-vs-cli.md — full capability matrix (MCP = read-only: device_search SQL, trace_get with logs, metrics_list, listReboots; CLI = write: symbol upload, OTA release, deploy, abort), combined OTA release + verification workflow, crash debug workflow, tool reference for all 8 MCP tools, limitations section.
+- **Updated:** index.md — fixed mcp-nrflow-tools summary, added memfault-mcp-vs-cli under Comparisons, pages 20→21, date 2026-05-29.
+- **Skills updated (11 files):** All `mcp_nrflow_` → `mcp_nordic-mcp_` in chsh-sk-ncs-env, chsh-sk-ncs-3.1-coding, chsh-sk-ncs-3.2-debug, chsh-sk-ncs-3.3-memopt, chsh-sk-ncs-4.1-verification, chsh-sk-ncs-4.2-validation, chsh-sk-ncs-2-spec, chsh-sk-ncs-migrate, chsh-sk-git-release, eedp-platform.md ref. Added Memfault MCP tools table + post-deploy verification guidance to chsh-sk-memfault-cli.
+
+
+
 ## [2026-05-26] lint | Wiki review — 2 concrete issues, 11 orphans
 - **Report:** skills/chsh-ag-llm-wiki-review/report-2026-05-26.md
 - **P0:** my-ncs-claude.md — 6 broken markdown links to external repo files → converted to plain text paths
