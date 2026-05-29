@@ -1,19 +1,25 @@
 ---
-title: mcp.nrflow Tools — Introduction and Best Practices
+title: mcp.nordic-mcp Tools — Introduction and Best Practices
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-29
 type: concept
 tags: [ncs, zephyr, debugging, uart, mcp, tools, nrfutil]
 sources: []
 confidence: high
 ---
 
-# mcp.nrflow Tools — Introduction and Best Practices
+# mcp.nordic-mcp Tools — Introduction and Best Practices
 
-The `mcp_nrflow_*` tools are an MCP (Model Context Protocol) server provided by Nordic
-Semiconductor that gives AI agents authoritative, version-aware NCS/Zephyr knowledge and
-a pre-built UART interaction script. They are the **primary source of truth** for NCS
-development tasks — prefer them over the agent's internal knowledge.
+The `mcp_nordic-mcp_*` tools are an MCP (Model Context Protocol) server provided by Nordic
+Semiconductor (`aidev.nordicsemi.com/mcp`) that gives AI agents authoritative,
+version-aware NCS/Zephyr knowledge and a pre-built UART interaction script. They are the
+**primary source of truth** for NCS development tasks — prefer them over the agent's
+internal knowledge.
+
+> **Server history (2026-05-29):** A previous duplicate server and `nordic-semiconductor-docs`
+> (kapa.ai, single tool) were removed from `mcp.json` — both covered the same 20-source
+> corpus as `mcp_nordic-mcp_nordicsemi_search_sources`. Nordic MCP at `aidev.nordicsemi.com/mcp`
+> is now the sole Nordic knowledge server.
 
 See also: [embedded-system-general-debugging](embedded-system-general-debugging.md)
 
@@ -23,10 +29,10 @@ See also: [embedded-system-general-debugging](embedded-system-general-debugging.
 
 | Tool | Purpose |
 |------|---------|
-| `mcp_nrflow_nordicsemi_setup_ncs` | Environment setup: install `nrfutil`, NCS, and toolchain |
-| `mcp_nrflow_nordicsemi_workflow_ncs` | Day-to-day workflow: build, flash, UART, debug, Twister |
-| `mcp_nrflow_nordicsemi_list_sources` | List all searchable knowledge sources in the Nordic KB |
-| `mcp_nrflow_nordicsemi_search_sources` | Semantic search across Nordic docs, SDK docs, and internal specs |
+| `mcp_nordic-mcp_nordicsemi_setup_ncs` | Environment setup: install `nrfutil`, NCS, and toolchain |
+| `mcp_nordic-mcp_nordicsemi_workflow_ncs` | Day-to-day workflow: build, flash, UART, debug, Twister |
+| `mcp_nordic-mcp_nordicsemi_list_sources` | List all searchable knowledge sources in the Nordic KB |
+| `mcp_nordic-mcp_nordicsemi_search_sources` | Semantic search across Nordic docs, SDK docs, and internal specs |
 
 These tools return **instructions and resources** (markdown documents), not direct
 commands. After calling them, the agent reads the returned content and follows the
@@ -72,12 +78,12 @@ Returns ranked chunks with source URLs. Better than web search for NCS-specific 
 
 | Task | Tool |
 |------|------|
-| First-time NCS setup, toolchain install | `nordicsemi_setup_ncs` |
-| Build command syntax, overlay patterns | `nordicsemi_workflow_ncs` |
-| Board name, PCA number, target resolution | `nordicsemi_search_sources` |
-| UART monitoring, log capture | `nordicsemi_workflow_ncs` → uart monitor script |
-| Code patterns, Kconfig best practices | `nordicsemi_workflow_ncs` → embedded code guidance |
-| Unknown API, driver, Kconfig option | `nordicsemi_search_sources` |
+| First-time NCS setup, toolchain install | `mcp_nordic-mcp_nordicsemi_setup_ncs` |
+| Build command syntax, overlay patterns | `mcp_nordic-mcp_nordicsemi_workflow_ncs` |
+| Board name, PCA number, target resolution | `mcp_nordic-mcp_nordicsemi_search_sources` |
+| UART monitoring, log capture | `mcp_nordic-mcp_nordicsemi_workflow_ncs` → uart monitor script |
+| Code patterns, Kconfig best practices | `mcp_nordic-mcp_nordicsemi_workflow_ncs` → embedded code guidance |
+| Unknown API, driver, Kconfig option | `mcp_nordic-mcp_nordicsemi_search_sources` |
 
 ### Source-of-truth order (from the workflow resource)
 
@@ -92,16 +98,16 @@ VCOM assignments — they drift between NCS versions.
 
 ---
 
-## Comparison: mcp.nrflow vs Manual Scripting
+## Comparison: mcp.nordic-mcp vs Manual Scripting
 
 The session that produced the sQSPI implementation used **manual Python scripting** for
-UART and reset because the mcp.nrflow tools were not consulted. Here is a comparison:
+UART and reset because the mcp.nordic-mcp tools were not consulted. Here is a comparison:
 
 ### UART Log Capture
 
-| | Manual (session approach) | mcp.nrflow |
+| | Manual (session approach) | Nordic MCP |
 |--|--------------------------|-----------|
-| Script | Custom `loop_test.py` with `pyserial` | `nordicsemi_uart_monitor.py` (pre-built) |
+| Script | Custom `loop_test.py` with `pyserial` | `nordicsemi_uart_monitor.py` (pre-built, loaded via `mcp_nordic-mcp_nordicsemi_workflow_ncs`) |
 | HWFC setup | Manual (`rtscts=True`) | Pre-configured in script |
 | Drain/read patterns | Hand-written `read_until()` | Built-in |
 | Development time | ~30 min to write + debug | 0 (already exists) |
@@ -109,7 +115,7 @@ UART and reset because the mcp.nrflow tools were not consulted. Here is a compar
 
 ### Board Reset
 
-| | Manual | mcp.nrflow |
+| | Manual | Nordic MCP |
 |--|--------|-----------|
 | Command | `nrfutil device reset --serial-number <SN>` | Same — from `nrfutil-manual` resource |
 | Discovery | Hardcoded serial number | `nrfutil device list` guided by workflow |
@@ -118,7 +124,7 @@ UART and reset because the mcp.nrflow tools were not consulted. Here is a compar
 
 ### Build
 
-| | Manual | mcp.nrflow |
+| | Manual | Nordic MCP |
 |--|--------|-----------|
 | Command | Hardcoded `nrfutil sdk-manager toolchain launch ...` | Same — from workflow resource |
 | Board target | Looked up manually | `nordicsemi_search_sources` resolves it |
@@ -127,7 +133,7 @@ UART and reset because the mcp.nrflow tools were not consulted. Here is a compar
 
 ### Debugging with Multiple Devices
 
-Both approaches support multi-device testing, but mcp.nrflow handles it more cleanly:
+Both approaches support multi-device testing, but Nordic MCP handles it more cleanly:
 - The workflow resource explicitly warns: when multiple devices are attached, ask the
   user to disambiguate before flashing.
 - The `nrfutil device list` step is mandatory in the workflow, preventing wrong-device
@@ -149,11 +155,12 @@ nrfutil device list  # identify both boards by serial number
 
 ## Best Practices
 
-1. **Always call `nordicsemi_workflow_ncs` at the start of any NCS build/flash/debug
-   session** — it loads the uart monitor script and nrfutil manual into context.
+1. **Always call `mcp_nordic-mcp_nordicsemi_workflow_ncs` at the start of any NCS
+   build/flash/debug session** — it loads the uart monitor script and nrfutil manual
+   into context.
 
-2. **Use `nordicsemi_search_sources` before hardcoding any board name, VCOM number, or
-   Kconfig symbol.** These change across NCS versions.
+2. **Use `mcp_nordic-mcp_nordicsemi_search_sources` before hardcoding any board name,
+   VCOM number, or Kconfig symbol.** These change across NCS versions.
 
 3. **Use the pre-built `nordicsemi_uart_monitor.py` script** instead of writing
    `pyserial` loops from scratch. The session wasted time debugging HWFC and drain
@@ -162,11 +169,14 @@ nrfutil device list  # identify both boards by serial number
 4. **For multi-device testing:** list all devices, assign them explicit roles (reference
    vs test), and always pass `--dev-id` to avoid flashing the wrong board.
 
-5. **Call `nordicsemi_search_sources` for architecture questions before writing driver
-   code.** In the session, the VPR barrier timing issue could have been understood
-   earlier by searching for "sQSPI VPR barrier synchronization" and "nRF54LM20 FLPR
-   event handling" in the Nordic KB.
+5. **Call `mcp_nordic-mcp_nordicsemi_search_sources` for architecture questions before
+   writing driver code.** In the session, the VPR barrier timing issue could have been
+   understood earlier by searching for "sQSPI VPR barrier synchronization" and
+   "nRF54LM20 FLPR event handling" in the Nordic KB.
 
 6. **Gate the setup tool and workflow tool separately:** `nordicsemi_setup_ncs` is a
    one-time environment setup; `nordicsemi_workflow_ncs` is for every work session. Do
    not conflate them.
+
+See also: [memfault-mcp-vs-cli](../comparisons/memfault-mcp-vs-cli.md) for the Memfault
+MCP server (read-only observability, separate from the Nordic MCP).
