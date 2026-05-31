@@ -20,10 +20,10 @@ WireGuard Client               ╷
 10.0.0.2/24                    │ UDP:8443
 DNS: 1.1.1.1, 8.8.8.8         │
 AllowedIPs: 0.0.0.0/0          ▼
-                    公网 IP:81.191.174.122:8443
+                    公网 IP:<your-public-ip>:8443
                                │
                     主路由 (Platinum-6840)
-                    端口转发 UDP 8443 → 192.168.1.75
+                    端口转发 UDP 8443 → <server-lan-ip>
                                │
                     Zyxel EX5700 OpenWrt
                     wg0: 10.0.0.1/24
@@ -129,11 +129,11 @@ uci commit firewall && /etc/init.d/firewall restart
 
 ## 主路由端口转发 (Platinum-6840)
 
-在 `http://192.168.1.254` → NAT / Port Forwarding：
+在 `http://<router-ip>` → NAT / Port Forwarding：
 
 | 协议 | WAN 端口 | LAN IP | LAN 端口 |
 |------|----------|--------|----------|
-| UDP  | 8443     | 192.168.1.75 | 8443 |
+| UDP  | 8443     | <server-lan-ip> | 8443 |
 
 ---
 
@@ -179,7 +179,7 @@ uci show firewall | grep wg
 
 **症状**：本地测试能通，蜂窝不通。
 
-**修复**：客户端 `Endpoint` 必须用公网 IP（`81.191.174.122`），不能用 `192.168.1.75`。
+**修复**：客户端 `Endpoint` 必须用公网 IP（`<your-public-ip>`），不能用 `<server-lan-ip>`。
 
 ### 坑 5：第一个 peer 的 AllowedIPs 是 /24，新设备无法握手
 
@@ -249,7 +249,7 @@ uci set network.@wireguard_wg0[0].allowed_ips='10.0.0.2/32'
 ```ini
 [Peer]
 PublicKey = <server_public.key>
-Endpoint = 81.191.174.122:8443
+Endpoint = <your-public-ip>:8443
 AllowedIPs = 0.0.0.0/0
 PersistentKeepalive = 25
 ```
@@ -266,7 +266,7 @@ wg show                          # 有 latest handshake
 tcpdump -i any -n udp port 8443 # 有 UDP length 148 入站包
 
 # 客户端
-curl -s ifconfig.me              # 返回公网 IP (81.191.174.122)
+curl -s ifconfig.me              # 返回公网 IP (<your-public-ip>)
 nslookup google.com              # 能解析（不被 DNS 污染）
 curl -s -o /dev/null -w '%{http_code}' https://www.youtube.com  # 200
 ```
@@ -291,7 +291,7 @@ curl -s -o /dev/null -w '%{http_code}' https://www.youtube.com  # 200
 | 服务端 IP | 10.0.0.1/24 |
 | 客户端 IP | 10.0.0.2/24 |
 | 端口 | UDP 8443 |
-| 公网入口 | 81.191.174.122 |
+| 公网入口 | <your-public-ip> |
 | 服务端公钥 | `5Y1wV+7amnbrFxrh+S+sKKZ2k3tSS6eCt9GpS5x/6zE=` |
 | 客户端公钥 | `kCatu1kH0QuL8pNzosZZLC5R7wfehFRkAL3kK4QScWM=` |
 | DNS | 1.1.1.1, 8.8.8.8 |

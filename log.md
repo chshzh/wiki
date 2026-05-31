@@ -123,7 +123,7 @@
 
 ## [2026-05-03] create + cleanup | NAS Ubuntu VM wiki page + Hermes dir cleanup
 - **Rewrote as NAS NFS architecture page:** entities/hermes-setup-on-linux-with-nas-nfs-backup.md — NAS is single source of truth, new machines recover by mounting NFS
-  - Covers: NFS mount details (192.168.75.10:/volume1/CharlieII, NFSv3, 3.6TB), what lives on NAS (hermes/, webui/, wiki/, backup/), zero-reconfig recovery, 5 pitfalls
+  - Covers: NFS mount details (<nas-ip>:/volume1/<volume>, NFSv3, 3.6TB), what lives on NAS (hermes/, webui/, wiki/, backup/), zero-reconfig recovery, 5 pitfalls
 - Also fixed: Telegram gateway (systemd 203/EXEC, stale paths → corrected), WebUI workspace → /mnt/CharlieII
 - **Updated:** index.md (pages 4→5, added Entities section), concepts/hermes-architecture.md (added cross-ref to nas-ubuntu24-vm)
 - **Cleanup /mnt/CharlieII/hermes/:** Removed Docker-era exploration leftovers
@@ -254,3 +254,23 @@
 - Cross-references: mcp-nrflow-tools, hermes-architecture, eedp-platform
 - index.md: added entry under AI/Dev Tools, bumped total to 20
 - Tags added: cursor (new)
+
+## [2026-05-31] ingest | agentmemory deep mining → 8 new NCS experience pages
+
+Mined agentmemory database covering 50+ sessions from 2025-10 through 2026-05.
+Sessions analysed include: d1cdeb42, 299515f9, 0ebeff51, 69ca6368, bf04a4eb,
+b51223d2, df6d96ae, f157d027, 558f2717, 50a3219c, b6ca3b52, 89531aad, 1f3afd05,
+de80a0e8, 620407bd, 8e6ec0c1, 2ac79fc1, c153ab22, c8bc6f97, db5832e8.
+
+Pages created (merged from /Users/chsh/.claude/wiki):
+- entities/nrf7002dk.md
+- entities/nrf54lm20dk-plus-nrf7002eb2.md
+- concepts/ncs-build-system.md
+- concepts/ncs-version-migration.md
+- concepts/memfault-workflow.md
+- concepts/wifi-debugging-patterns.md (also updated with BLE provisioning + P2P patterns)
+- comparisons/agentmemory-vs-llm-wiki.md
+- comparisons/nrf7002dk-vs-nrf54lm20dk.md
+
+Source wiki /Users/chsh/.claude/wiki deleted after merge.
+index.md: added 8 entries, bumped total to 28.
