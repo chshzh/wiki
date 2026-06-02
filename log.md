@@ -274,3 +274,21 @@ Pages created (merged from /Users/chsh/.claude/wiki):
 
 Source wiki /Users/chsh/.claude/wiki deleted after merge.
 index.md: added 8 entries, bumped total to 28.
+
+## [2026-06-02] create | claude-code-config-files
+- Created concepts/claude-code-config-files.md
+- Source: live session — user asked about Claude Code config locations after observing ~/.claude.json
+- Topics: ~/.claude.json (global + project-scoped MCPs, allowedTools, auth), ~/.claude/settings.json (model/theme/permissions), ~/.claude/CLAUDE.md, <project>/.claude/settings.json (committed), <project>/.claude/settings.local.json (gitignored), <project>/CLAUDE.md; restore checklist for new machines
+- Key finding: ~/.claude.json is the *only* place global and project-scoped MCP definitions are stored — must be backed up separately, app manages it, not human-edited
+- Cross-references: mcp-nordic-mcp-tools, cursor-skills-and-agents
+- index.md: added entry under AI/Dev Tools, bumped total to 29
+
+## [2026-06-02] config | set WIKI_PATH to ~/.claude/wiki
+- Added `export WIKI_PATH="$HOME/.claude/wiki"` to ~/.zshrc
+- ~/wiki (1 page, NCS-only stub created today) left in place but not the canonical wiki
+- Canonical wiki confirmed as ~/.claude/wiki (29 pages)
+
+## [2026-06-02] admin | deleted ~/wiki
+- Removed ~/wiki (4 files: SCHEMA.md, index.md, log.md, concepts/kconfig-nrf-security-mbedtls-warnings.md)
+- Content not migrated (user chose not to)
+- ~/.claude/wiki is now the only wiki on this machine

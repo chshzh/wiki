@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-05-31 | Total pages: 28
+> Last updated: 2026-06-02 | Total pages: 29
 
 ## Entities
 
@@ -26,6 +26,7 @@
 - [west-update-internals](concepts/west-update-internals.md) — How `west update` works: workspace discovery, manifest resolution, manifest-rev branch, detached HEAD semantics, floating vs pinned revisions
 
 ### AI / Dev Tools
+- [claude-code-config-files](concepts/claude-code-config-files.md) — Six config file locations (global MCPs in .claude.json, settings.json, CLAUDE.md, project .claude/) with restore checklist
 - [cursor-skills-and-agents](concepts/cursor-skills-and-agents.md) — Skills vs agents: invocation model, delegation pattern, design rules for `SKILL.md` and `~/.claude/agents/`
 - [deepseek-claude-code](concepts/deepseek-claude-code.md) — DeepSeek Anthropic API 兼容层直连 Claude Code：配置、模型策略、验证
 - [svg-pptx-agent-generation](concepts/svg-pptx-agent-generation.md) — AI Agent 视觉内容生成完整工作流：SVG（纯 XML 手写）→ PPTX（PptxGenJS），以电车运行管理 PPT 为案例
