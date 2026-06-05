@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-06-02 | Total pages: 29
+> Last updated: 2026-06-05 | Total pages: 30
 
 ## Entities
 
@@ -16,6 +16,7 @@
 - [eedp-platform](concepts/eedp-platform.md) — NCS v3.3.0 workspace reference (repo layout, build targets, skills) + EEDP: AI-controlled physical hardware (GPIO/JLink/Saleae/PPK2/Router) for embedded testing
 - [ncs-app-versioning](concepts/ncs-app-versioning.md) — Four-field `MAJOR.MINOR.PATCH.APP` versioning scheme for NCS workspace apps
 - [ncs-build-system](concepts/ncs-build-system.md) — West build commands, zephyr-env.sh gotcha, OVERLAY_CONFIG→EXTRA_CONF_FILE, board targets, flash partitioning
+- [nordic-wifi-webdash-memory](concepts/nordic-wifi-webdash-memory.md) — Webserver memory cost (+44.5 KB Flash / +18.6 KB RAM), CMakeLists fix, STA overlay files, webdash-as-GUI analysis
 - [ncs-version-migration](concepts/ncs-version-migration.md) — Iterative grep/fix pattern, known API changes per NCS version, realistic time estimates
 - [memfault-version-requirements](concepts/memfault-version-requirements.md) — Memfault's allowed characters, ordering algorithm, and `v`-prefix caveat
 - [memfault-workflow](concepts/memfault-workflow.md) — Build→flash→symbol upload→release→deploy loop; MQTT OTA topic; crash/WiFi reconnect interaction

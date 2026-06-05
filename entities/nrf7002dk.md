@@ -1,7 +1,7 @@
 ---
 title: nRF7002DK
 created: 2026-05-31
-updated: 2026-05-31
+updated: 2026-06-05
 type: entity
 entity_type: board
 tags: [hardware, ncs, wifi, build]
@@ -66,6 +66,27 @@ application log output (115200 baud).
 | nordic-wifi-memfault | Primary target |
 | nordic-wifi-webdash | Primary target |
 | nordic-wifi-audio | Not directly (uses nRF5340 Audio DK for audio) |
+
+---
+
+## Flash and RAM Budget
+
+| Region | Size | Notes |
+|--------|------|-------|
+| FLASH | 1 MB | Full chip; linker uses entire 1 MB (`PM disabled`). App slot (OTA) = 464 KB. |
+| RAM (app core) | 448 KB | 512 KB total − 64 KB reserved for `hci_ipc` (network co-processor) |
+
+### nordic-wifi-webdash measured usage (NCS v3.3.0, STA-only)
+
+| Config | Flash used | RAM used |
+|--------|-----------|---------|
+| STA + webserver | 687 KB (67.1%) | 381 KB (85.0%) |
+| STA, no webserver | 642 KB (62.6%) | 362 KB (80.9%) |
+| Webserver cost | **+44.5 KB** Flash | **+18.6 KB** RAM |
+
+**Rule of thumb for nRF7002DK:** Do not add the HTTP webserver on top of an app that
+already includes TLS + MQTT + Memfault SDK — the combined flash budget overflows 1 MB.
+See [nordic-wifi-webdash-memory](../concepts/nordic-wifi-webdash-memory.md) for full breakdown.
 
 ---
 
