@@ -292,3 +292,20 @@ index.md: added 8 entries, bumped total to 28.
 - Removed ~/wiki (4 files: SCHEMA.md, index.md, log.md, concepts/kconfig-nrf-security-mbedtls-warnings.md)
 - Content not migrated (user chose not to)
 - ~/.claude/wiki is now the only wiki on this machine
+
+## [2026-06-05] ingest | nordic-wifi-webdash memory comparison session
+- Source: live session — measured webserver vs no-webserver on nRF7002DK (STA-only, NCS v3.3.0)
+- Key findings:
+  - webserver costs +44.5 KB Flash / +18.6 KB RAM on nRF5340 cpuapp
+  - nRF5340 app core: 1 MB FLASH (full, PM disabled), 448 KB RAM (512 KB − 64 KB hci_ipc)
+  - Flash breakdown: HTTP parser+server (~21 KB), webserver.c + static assets (~9.4 KB), mDNS+DNS-SD (~4 KB), remainder
+  - RAM breakdown: HTTP client contexts × 10 (~15 KB), thread stack (2 KB), static buffers (1.5 KB)
+  - CMakeLists fix: webserver.c was unconditionally compiled; now gated on CONFIG_WEBSERVER_MODULE
+  - HTTP linker sections + gzip asset generation also gated on CONFIG_HTTP_SERVER
+  - webdash-as-GUI analysis: not advisable on nRF7002DK (flash pressure), cautious yes on nRF54LM20DK, dev-only
+- Files created:
+  - concepts/nordic-wifi-webdash-memory.md (new page)
+- Files updated:
+  - entities/nrf7002dk.md (added Flash/RAM budget section with measured numbers)
+  - index.md (added new page entry, bumped total to 30)
+  - nordic-wifi-webdash/README.md (added Feature Overlay Builds section with memory table)
