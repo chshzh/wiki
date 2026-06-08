@@ -309,3 +309,7 @@ index.md: added 8 entries, bumped total to 28.
   - entities/nrf7002dk.md (added Flash/RAM budget section with measured numbers)
   - index.md (added new page entry, bumped total to 30)
   - nordic-wifi-webdash/README.md (added Feature Overlay Builds section with memory table)
+
+## [2026-06-08] lint | Wiki review — 0 P0, 0 P1, 7 P2 (oversized pages, deferred) | `d483f86`
+- Checked 30 pages: frontmatter ✓, orphans ✓, broken links ✓, index ✓
+- 7 split candidates: eedp-platform(431), wireguard-comprehensive-guide(369), github-actions-ncs-ci(367), hermes-architecture(330), wireguard-openwrt-china-tunnel(298), svg-pptx-agent-generation(285), dns-over-https-doh(202)
