@@ -43,15 +43,15 @@ confidence: high
 ## Build Commands by Board
 
 ```sh
-# nRF7002DK
-west build -p -b nrf7002dk/nrf5340/cpuapp nordic-wifi-memfault \
-  -d build_nrf7002dk -- \
-  -DEXTRA_CONF_FILE=overlay-app-memfault-project-info.conf
-
 # nRF54LM20DK + nRF7002EB2
 west build -p -b nrf54lm20dk/nrf54lm20a/cpuapp nordic-wifi-memfault \
   -d build_nrf54lm20dk -- \
   -DSHIELD=nrf7002eb2 \
+  -DEXTRA_CONF_FILE=overlay-app-memfault-project-info.conf
+
+# nRF7002DK
+west build -p -b nrf7002dk/nrf5340/cpuapp nordic-wifi-memfault \
+  -d build_nrf7002dk -- \
   -DEXTRA_CONF_FILE=overlay-app-memfault-project-info.conf
 ```
 

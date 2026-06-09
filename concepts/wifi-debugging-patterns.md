@@ -163,8 +163,8 @@ to STA mode and can't complete group formation with the GO.
 
 | Board | USB serial port pattern | VCOM index |
 |-------|------------------------|------------|
-| nRF7002DK | `/dev/tty.usbmodem<id>` (macOS) | VCOM0 |
 | nRF54LM20DK | `/dev/tty.usbmodem0010518067141` (seen in logs) | VCOM0 |
+| nRF7002DK | `/dev/tty.usbmodem<id>` (macOS) | VCOM0 |
 | nRF5340 Audio DK | `/dev/tty.usbmodem<id>` | VCOM0 |
 
 **Quick connect:**

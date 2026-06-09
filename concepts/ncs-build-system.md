@@ -50,8 +50,8 @@ west build -p -b <board-target> <app-dir> -d <build-dir> -- \
 
 | Hardware | Target string |
 |----------|--------------|
-| nRF7002DK | `nrf7002dk/nrf5340/cpuapp` |
 | nRF54LM20DK + nRF7002EB2 | `nrf54lm20dk/nrf54lm20a/cpuapp` |
+| nRF7002DK | `nrf7002dk/nrf5340/cpuapp` |
 | nRF5340 Audio DK | `nrf5340_audio_dk/nrf5340/cpuapp` |
 
 ### Multiple overlay files
