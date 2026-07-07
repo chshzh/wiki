@@ -86,7 +86,7 @@ Invoke these skills (by name) for NCS-specific tasks:
 | Migrate app to a newer NCS version | `chsh-sk-ncs-migrate` |
 | Wi-Fi UDP throughput benchmarking | `chsh-sk-ncs-tc-wifi-throughput` |
 | Memfault OTA + observability | `chsh-sk-memfault` |
-| Git commit + push | `chsh-sk-git-commit` |
+| Git commit + push | `chsh-sk-ncs-3.4-git` |
 
 ---
 
