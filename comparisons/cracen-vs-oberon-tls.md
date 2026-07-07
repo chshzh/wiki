@@ -1,7 +1,7 @@
 ---
 title: CRACEN vs Oberon — TLS Crypto Backends on nRF54LM20DK and nRF7002DK
 created: 2026-05-13
-updated: 2026-05-13
+updated: 2026-07-07
 type: comparison
 tags: [ncs, crypto, tls, cracen, oberon, nrf54lm20, nrf5340, mbedtls, psa, stack]
 sources: []
@@ -145,3 +145,4 @@ is identical on both boards. The only differences between boards are:
 
 - [embedded-system-general-debugging](../concepts/embedded-system-general-debugging.md)
 - [memfault-version-requirements](../concepts/memfault-version-requirements.md)
+- [psa-crypto-tfm-vs-no-tfm](psa-crypto-tfm-vs-no-tfm.md) — the orthogonal TF-M-isolation-vs-not axis (independent of CRACEN/Oberon driver choice)
