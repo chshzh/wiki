@@ -3,6 +3,20 @@
 > Chronological record of all wiki actions. Append-only.
 > Actions: ingest, update, query, lint, create, archive, delete
 
+## [2026-07-07] update | ncs-version-migration — nordic-wifi-memfault v3.3.0→v3.4.0 full build fix (session d34b1836)
+- Added v3.4.0 mbedTLS findings: `MBEDTLS_X509_LIBRARY`/`MBEDTLS_TLS_LIBRARY` promptless (delete), `MBEDTLS_ECP_DP_SECP384R1_ENABLED` renamed to `PSA_WANT_ECC_SECP_R1_384`, `MBEDTLS_ECDSA_C` now needs explicit `MBEDTLS_ECP_C=y`.
+- Added empirical clarification: Kconfig strict mode does NOT treat deprecated/experimental/not-secure warnings as fatal by themselves (confirmed identical warnings present in both a failing and the final passing build) — only "defined without a type", "undefined symbol", "not directly user-configurable", and dependency value-mismatch warnings actually abort the build.
+- Added new section: Memfault Firmware SDK bump (independent of NCS/mbedTLS) — `MEMFAULT_COREDUMP_STORAGE_RRAM`→`_NRF_RRAM` rename, `CONFIG_MEMFAULT_FOTA` removed (→ `CONFIG_MEMFAULT_ZEPHYR_FOTA`), `memfault_fota_start()`→`memfault_zephyr_fota_start()` + header path change, `MEMFAULT_FOTA_CLI_CMD` fully dead.
+- Added new section: zego brick refactor gotcha — adopting `zego/bricks/ux` (banner moved here from `zego/bricks/wifi`) into a project with its own similarly-named local `ux` module caused a `ZBUS_LISTENER_DEFINE` symbol name collision at link time (`app_wifi_state_listener`); fixed by renaming the local listener, not by removing either module.
+
+## [2026-07-03] update | wifi-debugging-patterns — root-caused BLE provisioning DHCP-never-binds bug
+- Added Pattern N+4: confirmed via source (`wifi_prov_handler.c`, Zephyr hostap `supp_main.c`/`supp_api.c`) that the DHCP-bind watchdog reboot (nRF54LM20DK+nRF7002EB2) is a documented mitigation for a real upstream race — `wifi_prov_core`'s `SET_CONFIG` fires DISCONNECT immediately followed by CONNECT with no wait, wedging wpa_supplicant's single global ctrl_iface mutex/thread.
+- Researched whether a lighter (non-full-reboot) recovery exists: `CONFIG_NRF_WIFI_RPU_RECOVERY` does `net_if_down/up` but only triggers on RPU hardware watchdog interrupts, not host-side ctrl_iface timeouts — doesn't apply here. Linked matching open upstream bug zephyrproject-rtos/zephyr#97512.
+- No code fix applied yet (user stopped at diagnosis stage) — real fix would require patching vendored `sdk-nrf` (not tracked in `zego` repo).
+
+## [2026-07-03] update | wifi-debugging-patterns — A/B/C log comparison confirms SET_CONFIG-only, not board-general
+- User supplied side-by-side nRF7002DK (works) vs nRF54LM20DK+EB2 (fails) BLE-provisioning captures, plus the same nRF54LM20DK's next-boot CONNECT_STORED capture (works, no preceding DISCONNECT). Added as decisive evidence to Pattern N+4: rules out a general nRF54LM20DK/driver limitation — confirms the wedge is specific to wifi_prov_core's SET_CONFIG disconnect+connect race.
+
 ## [2026-05-29] lint | Wiki review — 1 P0 fixed, 0 P1, 14 P2 (info)
 - **P0 fixed:** concepts/eedp-platform.md — corrupted frontmatter opener (`chsh-sk-ncs-test ---`) stripped; YAML now parses correctly.
 - **P2 (info):** 14 pages have `sources: []` — valid per SCHEMA.md for session-derived content.
@@ -313,3 +327,50 @@ index.md: added 8 entries, bumped total to 28.
 ## [2026-06-08] lint | Wiki review — 0 P0, 0 P1, 7 P2 (oversized pages, deferred) | `d483f86`
 - Checked 30 pages: frontmatter ✓, orphans ✓, broken links ✓, index ✓
 - 7 split candidates: eedp-platform(431), wireguard-comprehensive-guide(369), github-actions-ncs-ci(367), hermes-architecture(330), wireguard-openwrt-china-tunnel(298), svg-pptx-agent-generation(285), dns-over-https-doh(202)
+
+## [2026-06-13] debug | P2P_CLIENT static IP root cause found and fixed | `5317c7d8`
+- `CONFIG_NET_IF_MAX_IPV4_COUNT=1` + `CONFIG_NET_CONFIG_MY_IPV4_ADDR="192.168.7.1"` occupies the only IPv4 slot at boot; must explicitly rm("192.168.7.1") before add("192.168.7.2")
+- `driver_zephyr.c:set_supp_port` calls `net_dhcpv4_restart` 4ms after CONNECT_RESULT; counteract with deferred 100ms `net_dhcpv4_stop` work item
+- wiki/concepts/wifi-debugging-patterns.md updated with Pattern N+1
+- [2026-06-30] update | wifi-debugging-patterns.md: added Pattern N+2 (reason=34 DISASSOC_LOW_ACK; nRF70 FW stats diagnosis — RSSI/OFDM-CRC/tx_timeout/rpu_hw_lockup; reason 6 vs 34). Cross-linked new skill chsh-sk-ncs-tc-nrf70-fw-stats. Session 54f9d0bc, device F4CE3600230A.
+
+## [2026-07-01] update | wifi-debugging-patterns.md: Pattern N+3 written, then corrected same day
+- Initial (wrong) claim: P2P_GO/SoftAP hard-limited to 1 station on nRF70 in NCS v3.3.0, based on `nrf/samples/wifi/softap/Kconfig` (`SOFTAP_SAMPLE_MAX_STATIONS` `range 1 1`) + driver `MAX_PEERS=5`
+- **User correction:** had already set and tested SoftAP with 3 simultaneous clients in this exact template
+- Root cause of my error: conflated one Nordic reference sample's self-imposed array-size Kconfig with an actual driver/hardware ceiling. The real generic knob is `CONFIG_WIFI_MGMT_AP_MAX_NUM_STA` (`zephyr/subsys/net/l2/wifi/Kconfig`, range 1-2007, default 4) feeding hostapd's `max_num_sta` directly — project's own `docs/dev-specs/1-architecture.md` documents `=3`, tested and working
+- Corrected finding: P2P_GO shares the identical hostapd AP code path as SoftAP, so the same station-count ceiling applies structurally; the actual reason P2P_GO only takes 1 client today is that `wifi_p2p_go_cancel_wps_timer()` disarms WPS PBC after the first connect and only re-arms on disconnect — an application-level design choice, not a hardware limit
+- index.md: bumped `updated` to 2026-07-01, summary line corrected to reflect WPS-gate finding not HW limit
+
+## [2026-07-02] update | ncs-build-system.md: Kconfig select-vs-depends-on circular dependency pattern + MBEDTLS_LEGACY_CRYPTO_C correction
+- Fixed a real circular dependency (`ZEGO_NETWORK depends-on ZEGO_WIFI depends-on NETWORKING`, with `NETWORKING`'s `default y if ZEGO_NETWORK` unable to ever fire) in `zego/bricks/wifi` and `zego/bricks/network` Kconfig by replacing `depends on` + conditional `default` with `select` at the mandatory-requirement points — new pattern section documents this generically.
+- Corrected an existing wiki section that said `MBEDTLS_LEGACY_CRYPTO_C` should be removed as deprecated — it's actually required on CRACEN/PSA-only boards (nRF54LM20DK) for `zego/memonitor`'s mbedTLS heap-debug linker symbols; ported the existing memfault fix into nordic-wifi-app-template/prj.conf instead of deleting it.
+- Verified via pristine-build `.config` byte-diff against pre-change baselines on nRF54LM20DK + nRF7002DK for both nordic-wifi-app-template and nordic-wifi-memfault — zero diff, confirming ~16 lines of hardcoded `prj.conf` overrides (across both apps) and several board `.conf` lines could be safely commented out (not deleted) as now-redundant with brick defaults. Session a3f9bf71.
+
+## [2026-07-03] update | ncs-version-migration.md: v3.3.0→v3.4.0 section (Mbed TLS 4.1.0 / TF-PSA-Crypto)
+- Migrated `zego` from NCS v3.3.0 to v3.4.0: `CONFIG_NRF_SECURITY` became a computed symbol (hard Kconfig error if assigned), `CONFIG_MBEDTLS_LEGACY_CRYPTO_C` removed entirely, `CONFIG_MBEDTLS_MEMORY_DEBUG` no longer forwarded to generated PSA crypto headers (nrf_security's `psa_crypto_want_config.cmake` whitelist gap) — broke `zego/memonitor`'s mbedTLS heap stat, defaulted to `n` until Nordic exposes a forwarding path.
+- New triage pattern for post-migration Kconfig deprecation warnings: grep the symbol across the app tree first — silent = inherited Zephyr/vendor default (app-controllable, e.g. `WIFI_NM_WPA_SUPPLICANT_LEGACY_CRYPTO`/`_WEP`); found only via `select` in vendor Kconfig (e.g. Nordic's `hostap_crypto/Kconfig` unconditionally selecting `MBEDTLS_ECP_C`/`BIGNUM_C`/`DECLARE_PRIVATE_IDENTIFIERS`) = not fixable without disabling the feature that needs it.
+- Disabled `CONFIG_WIFI_NM_WPA_SUPPLICANT_WEP=n` in `nordic-wifi-app-template/prj.conf` (obsolete, unused by this app), kept `LEGACY_CRYPTO=y` for STA-mode TKIP interop with older/mixed-mode routers — user's explicit tradeoff choice. Verified via pristine rebuild on nRF54LM20DK: WEP warnings gone, build succeeds (FLASH 58.79%, RAM 85.11%). Session 4ea9621c.
+
+## [2026-07-07] update | ncs-build-system.md: FIXED_PARTITION_* deprecation + WPA legacy-crypto warning triage
+- Cleared all app-owned build warnings in `nordic-wifi-memfault`: renamed 3 files' + `pm_config.h`'s `FIXED_PARTITION_ID/OFFSET/SIZE` → `PARTITION_*` (deprecated in `zephyr/include/zephyr/storage/flash_map.h`, mechanical no-op rename); left the vendored `memfault-firmware-sdk` copy of the same pattern untouched (not app-owned, reverts on `west update`).
+- Applied the same `WIFI_NM_WPA_SUPPLICANT_WEP=n` / `LEGACY_CRYPTO=n` decision already made in `nordic-wifi-app-template` (session 4ea9621c) to `nordic-wifi-memfault` too — this app is also personal WPA2/WPA3-PSK only, no legacy-AP requirement in its docs. Eliminated 8 deprecated/experimental/insecure warnings per board and shrank FLASH by ~4.5 KB (RC4/MD5 code dropped).
+- Remaining warnings (`NRF_PLATFORM_LUMOS`, `NETCORE_HCI_IPC` choice, `MBEDTLS_ECP_C`/`BIGNUM_C`/`DECLARE_PRIVATE_IDENTIFIERS`, `PSA_WANT_ALG_WPA3_SAE_*`, `WIFI_NM_WPA_SUPPLICANT` experimental) confirmed as SoC/sysbuild defaults or hard functional dependencies (WPA3 + ECDSA-cert TLS support) — new wiki section documents the triage so this isn't re-investigated from scratch next time. Verified via pristine rebuild on both boards, zero errors, memory unchanged besides the FLASH drop above. Session d34b1836.
+- Left the 5 vendored `memfault-firmware-sdk` deprecated-macro warnings (`FIXED_PARTITION_ADDRESS`/`_SIZE`, v1.40.0 pinned) untouched — confirmed via GitHub that upstream hasn't renamed them even in the latest release; `__DEPRECATED_MACRO` is a compile-time-only annotation (expansion unchanged), so zero functional risk. User's explicit choice to leave as-is over patching or filing upstream.
+- Found and fixed a real CI gap while investigating: `nordic-wifi-memfault/.github/workflows/{validation,release}.yml` were missing the "Apply vendored nrf_security patches" step that `zego/.github/workflows/*.yml` already has — this app also needs `zego/patches/nrf_security/0001-forward-mbedtls-memory-debug.patch` (same `CONFIG_ZEGO_MEMONITOR_ZVIEW` mbedTLS-heap dependency documented in `prj.conf`) but CI was silently building without it. Ported the step verbatim from `zego`'s workflows into both files, right after `west update`/before the build step.
+
+## [2026-07-07] create | psa-crypto-tfm-vs-no-tfm
+- Created comparisons/psa-crypto-tfm-vs-no-tfm.md — Mbed TLS 4.x split (legacy TLS/X.509 now calls PSA Crypto API for all primitives) and the two NCS PSA implementation standards: TF-M Crypto Service (isolated, IPC) vs Oberon PSA Crypto (in-process, no isolation)
+- Source: user question about not using TF-M with PSA crypto due to memory limitations; verified via Nordic docs (`nordicsemi_search_sources`) + live `nordic-wifi-memfault` `.config` (nRF54LM20A/cpuapp: `CONFIG_PSA_CRYPTO_DRIVER_CRACEN=y`, `CONFIG_BUILD_WITH_TFM` not set at all — working proof this config runs WPA2/WPA3 + concurrent mbedTLS TLS sessions with no TF-M)
+- Key finding: TF-M is only "Experimental" on nRF54LM20A in NCS v3.4.0 (Oberon PSA Crypto is "Supported") — skipping TF-M is the recommended path on this chip family for RAM-constrained apps, not a workaround with gaps
+- Key finding: CRACEN's KMU hardware key slots (`PSA_KEY_LOCATION_CRACEN_KMU`) work without TF-M too — hardware-backed keys don't strictly require TF-M isolation on nRF54L/LM; noted a community devzone report of `PSA_ERROR_NOT_SUPPORTED` on KMU persistent-key generation as a caveat to verify empirically if pursued
+- Cross-referenced from comparisons/cracen-vs-oberon-tls.md (orthogonal driver-choice axis vs this isolation-choice axis)
+- index.md: added entry under Comparisons, bumped total to 31
+
+## [2026-07-07] fix | ncs-build-system.md: ZView LookupError on __weak extern k_heap symbols
+- `west zview live` crashed with `LookupError: Symbol 'net_buf_mem_pool_rx_bufs' address not found.` on nordic-wifi-memfault (nRF54LM20DK, `CONFIG_NET_BUF_FIXED_DATA_SIZE=y`). Root cause: `zego/bricks/memonitor/src/memonitor.c` declares `extern __weak struct k_heap net_buf_mem_pool_rx_bufs;` so it compiles under any Kconfig combo, but this build never defines it (real symbol is `net_buf_fixed_rx_bufs` instead) — DWARF still records the bare `extern` as a declaration-only `DW_TAG_variable` DIE, and ZView's `elf_inspector.py::_parse()` collected it anyway (missing the same `DW_AT_declaration` guard already present on the sibling `DW_TAG_structure_type` branch).
+- Fixed in `modules/tools/zview/src/backend/elf_inspector.py` (own repo, `chshzh/zview`, not vendored/third-party): added the `DW_AT_declaration` skip to the `DW_TAG_variable` branch, bumped `_CACHE_SCHEMA_VERSION` 2→3 to auto-invalidate stale caches. Verified directly via `ElfInspector` against the real ELF: the two undefined weak symbols now drop out, all 5 real heaps still resolve. New wiki section covers the general pattern (DWARF scanners over `__weak extern` globals must filter declaration-only DIEs). Session d34b1836.
+
+## [2026-07-07] create | zephyr-assert-usage
+- Created concepts/zephyr-assert-usage.md — documents `CONFIG_ASSERT` (zephyr/subsys/debug/Kconfig): compiles `__ASSERT()` to nothing when off (zero cost), or to a runtime check + `assert_post_action()` fatal error when on; covers sub-options (`ASSERT_LEVEL`, `ASSERT_VERBOSE`, `ASSERT_NO_MSG_INFO`/`NO_COND_INFO`/`NO_FILE_INFO`, `SPIN_VALIDATE`) and the distinction from the unrelated Bluetooth-stack `CONFIG_ASSERT_ON_ERRORS`.
+- Recommendation for this workspace's NCS apps: leave off for release (flash/RAM budget is already tight — see ncs-build-system.md), enable via a debug overlay during development/debugging to catch invariant violations with file:line info.
+- Cross-referenced from ncs-build-system.md and wifi-debugging-patterns.md; index.md updated, total pages 31→32.
