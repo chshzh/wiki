@@ -1,7 +1,7 @@
 ---
 title: nRF7002DK
 created: 2026-05-31
-updated: 2026-06-05
+updated: 2026-07-15
 type: entity
 entity_type: board
 tags: [hardware, ncs, wifi, build]
@@ -95,3 +95,4 @@ See [nordic-wifi-webdash-memory](../concepts/nordic-wifi-webdash-memory.md) for 
 - [[nrf7002dk-vs-nrf54lm20dk]] — Side-by-side comparison
 - [[ncs-build-system]] — Build commands and flags
 - [[wifi-debugging-patterns]] — WiFi behavior on this board
+- [[wifi-power-save-listen-interval]] — nRF70 power-save wakeup mode / listen interval / DTIM quantization behavior

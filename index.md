@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-07-07 | Total pages: 32
+> Last updated: 2026-07-15 | Total pages: 33
 
 ## Entities
 
@@ -21,6 +21,7 @@
 - [memfault-version-requirements](concepts/memfault-version-requirements.md) — Memfault's allowed characters, ordering algorithm, and `v`-prefix caveat
 - [memfault-workflow](concepts/memfault-workflow.md) — Build→flash→symbol upload→release→deploy loop; MQTT OTA topic; crash/WiFi reconnect interaction
 - [wifi-debugging-patterns](concepts/wifi-debugging-patterns.md) — Failure patterns: timeout reboot loop, provisioner reset, headset autoconnect, wrong password, BLE provisioning, P2P steps, P2P_CLIENT static IP, reason=34 disconnect, P2P_GO multi-client (WPS re-arm gate, not HW limit), wifi_prov_core disconnect+connect race wedging ctrl_iface (DHCP never binds)
+- [wifi-power-save-listen-interval](concepts/wifi-power-save-listen-interval.md) — nRF70 PS wakeup mode: listen_interval is quantized to the nearest whole DTIM period; beacon interval reported in TU (×1.024ms); exit_strategy `tim` forces every-DTIM wake
 - [embedded-system-general-debugging](concepts/embedded-system-general-debugging.md) — Debugging lessons from sQSPI driver implementation: barriers, multi-device testing, loop scripts
 - [mcp-nordic-mcp-tools](concepts/mcp-nordic-mcp-tools.md) — Nordic MCP server tools and best practices for NCS build/flash/UART workflows
 - [github-actions-ncs-ci](concepts/github-actions-ncs-ci.md) — GitHub Actions CI for NCS firmware: Docker container approach, rolling releases, pre-built firmware test loop, idempotent git am, artifact naming, manifest pitfalls

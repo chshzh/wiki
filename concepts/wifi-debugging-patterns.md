@@ -433,4 +433,5 @@ the timeout.
 - [[memfault-workflow]] — How to correlate WiFi failures with Memfault crash reports
 - [[ncs-build-system]] — Build command for WiFi credential overlays
 - [[zephyr-assert-usage]] — Enabling `CONFIG_ASSERT` on a debug build to catch invariant violations faster during root-cause isolation
+- [[wifi-power-save-listen-interval]] — Power-save wakeup mode (DTIM vs listen interval) quantization behavior on nRF70
 - Skill `chsh-sk-ncs-tc-nrf70-fw-stats` — parse the nRF70 FW stats blob and interpret the counters (used in Pattern N+2)
