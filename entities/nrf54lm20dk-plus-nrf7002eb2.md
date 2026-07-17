@@ -1,7 +1,7 @@
 ---
 title: nRF54LM20DK + nRF7002EB2
 created: 2026-05-31
-updated: 2026-05-31
+updated: 2026-07-17
 type: entity
 entity_type: board
 tags: [hardware, ncs, wifi, build, debug, failure]
@@ -91,8 +91,22 @@ The SPI-vs-QSPI difference is significant for throughput. See [[nrf7002dk-vs-nrf
 
 ---
 
+## RF Compliance Status
+
+EB II's own RF compliance hasn't been separately characterized. It inherits the nRF7002 chip's
+RF performance in principle, but not any board-level certification — sharing a chip with
+[[nrf7002dk]] does not mean sharing its (pre-compliance) FCC test data, since compliance depends
+on the antenna, PCB ground plane, and enclosure of this specific board. A customer shipping
+EB II's design (or something close) in an end product would need to test/certify that specific
+implementation themselves. See [fcc-ce-target](../concepts/fcc-ce-target.md) for the full
+reasoning.
+
+---
+
 ## Related Pages
 - [[nrf7002dk]] — Reference board for baseline comparison
 - [[nrf7002dk-vs-nrf54lm20dk]] — Detailed comparison
 - [[wifi-debugging-patterns]] — Board-specific WiFi failure patterns
 - [[ncs-build-system]] — Build command with shield flag
+- [fcc-ce-target](../concepts/fcc-ce-target.md) — why sharing a chip with the DK doesn't mean sharing its compliance data
+- [fcc-ce-conducted-radiated-rf-test-methods](../concepts/fcc-ce-conducted-radiated-rf-test-methods.md) — conducted vs. radiated RF test methodology

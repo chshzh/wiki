@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-07-15 | Total pages: 33
+> Last updated: 2026-07-17 | Total pages: 35
 
 ## Entities
 
@@ -14,6 +14,8 @@
 
 ### Nordic / NCS
 - [eedp-platform](concepts/eedp-platform.md) — NCS v3.3.0 workspace reference (repo layout, build targets, skills) + EEDP: AI-controlled physical hardware (GPIO/JLink/Saleae/PPK2/Router) for embedded testing
+- [fcc-ce-conducted-radiated-rf-test-methods](concepts/fcc-ce-conducted-radiated-rf-test-methods.md) — Conducted vs. radiated RF test methodology (ANSI C63.10, EN 300 328), why both are often needed, EIRP, corrects a source claim that nRF7002 supports MIMO (it's SISO)
+- [fcc-ce-target](concepts/fcc-ce-target.md) — What triggers FCC/CE certification ("intentional radiator"), FCC modular grant vs CE self-issued DoC, chip vs module vs end product, why shared silicon ≠ shared compliance
 - [ncs-app-versioning](concepts/ncs-app-versioning.md) — Four-field `MAJOR.MINOR.PATCH.APP` versioning scheme for NCS workspace apps
 - [ncs-build-system](concepts/ncs-build-system.md) — West build commands, zephyr-env.sh gotcha, OVERLAY_CONFIG→EXTRA_CONF_FILE, board targets, flash partitioning, Kconfig select-vs-depends-on circular dependency fix
 - [nordic-wifi-webdash-memory](concepts/nordic-wifi-webdash-memory.md) — Webserver memory cost (+44.5 KB Flash / +18.6 KB RAM), CMakeLists fix, STA overlay files, webdash-as-GUI analysis

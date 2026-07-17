@@ -1,7 +1,7 @@
 ---
 title: nRF7002DK
 created: 2026-05-31
-updated: 2026-07-15
+updated: 2026-07-17
 type: entity
 entity_type: board
 tags: [hardware, ncs, wifi, build]
@@ -90,9 +90,22 @@ See [nordic-wifi-webdash-memory](../concepts/nordic-wifi-webdash-memory.md) for 
 
 ---
 
+## RF Compliance Status
+
+Some FCC testing has been done on this DK, but it was pre-compliance/reference validation for
+this specific reference design — not a Certification grant covering "the nRF7002" as a part
+number. Compliance is a property of the whole RF assembly (PCB, matching network, antenna,
+enclosure), not the chip, so this data does not transfer to other boards sharing the same chip
+(e.g. [[nrf54lm20dk-plus-nrf7002eb2]]). See [fcc-ce-target](../concepts/fcc-ce-target.md) for
+the full reasoning.
+
+---
+
 ## Related Pages
 - [[nrf54lm20dk-plus-nrf7002eb2]] — Newer platform for comparison
 - [[nrf7002dk-vs-nrf54lm20dk]] — Side-by-side comparison
 - [[ncs-build-system]] — Build commands and flags
 - [[wifi-debugging-patterns]] — WiFi behavior on this board
 - [[wifi-power-save-listen-interval]] — nRF70 power-save wakeup mode / listen interval / DTIM quantization behavior
+- [fcc-ce-target](../concepts/fcc-ce-target.md) — why this DK's FCC testing doesn't cover other boards or the chip generally
+- [fcc-ce-conducted-radiated-rf-test-methods](../concepts/fcc-ce-conducted-radiated-rf-test-methods.md) — conducted vs. radiated RF test methodology
