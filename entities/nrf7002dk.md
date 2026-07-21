@@ -99,6 +99,11 @@ enclosure), not the chip, so this data does not transfer to other boards sharing
 (e.g. [[nrf54lm20dk-plus-nrf7002eb2]]). See [fcc-ce-target](../concepts/fcc-ce-target.md) for
 the full reasoning.
 
+Datasheet nominal max TX power is 13 dBm, but the real achievable ceiling is board-specific and
+firmware-applied (`min(default ceiling, board ceiling)`) — see
+[nrf7002-tx-power-ceiling-measurement](../concepts/nrf7002-tx-power-ceiling-measurement.md) for
+the EVM-based measurement procedure.
+
 ---
 
 ## Related Pages
@@ -109,3 +114,4 @@ the full reasoning.
 - [[wifi-power-save-listen-interval]] — nRF70 power-save wakeup mode / listen interval / DTIM quantization behavior
 - [fcc-ce-target](../concepts/fcc-ce-target.md) — why this DK's FCC testing doesn't cover other boards or the chip generally
 - [fcc-ce-conducted-radiated-rf-test-methods](../concepts/fcc-ce-conducted-radiated-rf-test-methods.md) — conducted vs. radiated RF test methodology
+- [nrf7002-tx-power-ceiling-measurement](../concepts/nrf7002-tx-power-ceiling-measurement.md) — EVM-based procedure to measure the real max TX power ceiling

@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-07-17 | Total pages: 35
+> Last updated: 2026-07-17 | Total pages: 36
 
 ## Entities
 
@@ -22,6 +22,7 @@
 - [ncs-version-migration](concepts/ncs-version-migration.md) — Iterative grep/fix pattern, known API changes per NCS version, realistic time estimates
 - [memfault-version-requirements](concepts/memfault-version-requirements.md) — Memfault's allowed characters, ordering algorithm, and `v`-prefix caveat
 - [memfault-workflow](concepts/memfault-workflow.md) — Build→flash→symbol upload→release→deploy loop; MQTT OTA topic; crash/WiFi reconnect interaction
+- [nrf7002-tx-power-ceiling-measurement](concepts/nrf7002-tx-power-ceiling-measurement.md) — EVM-based procedure (NAN_043) to measure real max TX power ceiling: firmware applies min(default, board devicetree ceiling); step down 1dB until SEM/EVM pass; MCS0 EVM requirement −5dB
 - [wifi-debugging-patterns](concepts/wifi-debugging-patterns.md) — Failure patterns: timeout reboot loop, provisioner reset, headset autoconnect, wrong password, BLE provisioning, P2P steps, P2P_CLIENT static IP, reason=34 disconnect, P2P_GO multi-client (WPS re-arm gate, not HW limit), wifi_prov_core disconnect+connect race wedging ctrl_iface (DHCP never binds)
 - [wifi-power-save-listen-interval](concepts/wifi-power-save-listen-interval.md) — nRF70 PS wakeup mode: listen_interval is quantized to the nearest whole DTIM period; beacon interval reported in TU (×1.024ms); exit_strategy `tim` forces every-DTIM wake
 - [embedded-system-general-debugging](concepts/embedded-system-general-debugging.md) — Debugging lessons from sQSPI driver implementation: barriers, multi-device testing, loop scripts

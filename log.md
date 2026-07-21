@@ -389,3 +389,10 @@ index.md: added 8 entries, bumped total to 28.
 - **Correction flagged during ingest**: the source conversation claimed the EN 300 328 multi-chain provision was "relevant to nRF7002, which supports MIMO" — user (Charlie) confirmed nRF7002 is SISO, not MIMO-capable. Left the raw source untouched (immutable per convention) and added an explicit correction block in fcc-ce-conducted-radiated-rf-test-methods.md; set `contested: true` in that page's frontmatter.
 - Updated entities/nrf7002dk.md and entities/nrf54lm20dk-plus-nrf7002eb2.md with new "RF Compliance Status" sections + backlinks to both new pages (bumped `updated` on both).
 - index.md: added both new pages under Concepts > Nordic/NCS (alphabetical), total pages 33→35, last-updated bumped to 2026-07-17.
+
+## [2026-07-17] create | nrf7002-tx-power-ceiling-measurement
+- Created concepts/nrf7002-tx-power-ceiling-measurement.md — documents the EVM-based method (Nordic app note NAN_043) for measuring the real max TX power ceiling on nRF7002, prompted by a customer power-ceiling measurement question (datasheet nominal max is 13 dBm).
+- Key points: firmware TX power ceiling = min(default ceiling, board devicetree-overlay ceiling) — board ceilings must be raised ≥ default to measure true chip max; measurement procedure is a step-down sweep (start high, −1 dB per iteration until SEM/EVM both pass); EVM pass/fail is per-modulation (MCS0 BPSK 1/2 rate requires −5 dB per IEEE 802.11).
+- Saved raw/articles/nrf7002-tx-power-ceiling-evm-support-answer-2026-07-17.md (internal support answer citing 3 NAN_043 app note sub-pages; no single source_url, sha256 n/a for this short pasted answer).
+- Cross-referenced from entities/nrf7002dk.md (new RF Compliance Status note + Related Pages link) and links out to fcc-ce-target.md / fcc-ce-conducted-radiated-rf-test-methods.md.
+- index.md: added under Concepts > Nordic/NCS (alphabetical), total pages 35→36.
