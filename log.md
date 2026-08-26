@@ -3,6 +3,11 @@
 > Chronological record of all wiki actions. Append-only.
 > Actions: ingest, update, query, lint, create, archive, delete
 
+## [2026-08-14] create | macos-ubuntu-wifi-sniffer.md — macOS Host + Ubuntu VM Wi-Fi sniffer architecture & automation
+- Created concept page documenting the macOS + Ubuntu VM (VMware Fusion) Wi-Fi sniffer architecture: why Linux VM is needed for third-party USB monitor mode, verified 7.41 Gbps virtual NAT link throughput (>25x max air bandwidth).
+- Documented key technical pitfalls and fixes: SSH password prompt corrupting binary pcap pipe (NOPASSWD sudoers fix), IPv6 link-local mDNS resolution hang (`ssh -4` fix), NetworkManager silent radio re-tuning (unmanaged-devices MAC fix), and USB pass-through detachment across reboots (VMware Fusion auto-connect rule).
+- Indexed under Homelab / Networking in index.md.
+
 ## [2026-07-07] update | ncs-version-migration — nordic-wifi-memfault v3.3.0→v3.4.0 full build fix (session d34b1836)
 - Added v3.4.0 mbedTLS findings: `MBEDTLS_X509_LIBRARY`/`MBEDTLS_TLS_LIBRARY` promptless (delete), `MBEDTLS_ECP_DP_SECP384R1_ENABLED` renamed to `PSA_WANT_ECC_SECP_R1_384`, `MBEDTLS_ECDSA_C` now needs explicit `MBEDTLS_ECP_C=y`.
 - Added empirical clarification: Kconfig strict mode does NOT treat deprecated/experimental/not-secure warnings as fatal by themselves (confirmed identical warnings present in both a failing and the final passing build) — only "defined without a type", "undefined symbol", "not directly user-configurable", and dependency value-mismatch warnings actually abort the build.

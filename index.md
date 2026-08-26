@@ -38,6 +38,7 @@
 - [svg-pptx-agent-generation](concepts/svg-pptx-agent-generation.md) — AI Agent 视觉内容生成完整工作流：SVG（纯 XML 手写）→ PPTX（PptxGenJS），以电车运行管理 PPT 为案例
 
 ### Homelab / Networking
+- [macos-ubuntu-wifi-sniffer](concepts/macos-ubuntu-wifi-sniffer.md) — macOS Host + Ubuntu VM Wi-Fi sniffer: 7+ Gbps virtual NAT streaming, SSH binary pcap pipe, mDNS, systemd boot service, VMware Fusion auto-connect
 - [hermes-architecture](concepts/hermes-architecture.md) — Hermes Agent 源码架构与功能全景
 - [hermes-docker-compose-deployment](concepts/hermes-docker-compose-deployment.md) — Hermes Agent + WebUI Docker Compose 部署：init 容器权限修正、三服务编排、NAS 持久化（~5 分钟阅读）
 - [linux-vm-docker-permission](concepts/linux-vm-docker-permission.md) — Linux VM / Docker UID 权限对齐：UID 不匹配根因、五种解决模式、排错清单
