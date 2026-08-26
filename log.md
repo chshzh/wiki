@@ -401,3 +401,4 @@ index.md: added 8 entries, bumped total to 28.
 - Saved raw/articles/nrf7002-tx-power-ceiling-evm-support-answer-2026-07-17.md (internal support answer citing 3 NAN_043 app note sub-pages; no single source_url, sha256 n/a for this short pasted answer).
 - Cross-referenced from entities/nrf7002dk.md (new RF Compliance Status note + Related Pages link) and links out to fcc-ce-target.md / fcc-ce-conducted-radiated-rf-test-methods.md.
 - index.md: added under Concepts > Nordic/NCS (alphabetical), total pages 35→36.
+- 2026-08-26: Evaluated 9 commits from nordic-wifi-memfault (ncs264) for porting to nordic-wifi-memfault-ncs340 (ncs-v3.4.x-lts); 0/9 applied — all superseded by independently-evolved zego bricks (memonitor, wifi_ble_prov, network) or facts specific to ncs264's since-diverged single-board/STA-only scope vs ncs340's dual-board scope. New concepts/cross-fork-commit-porting-zego.md; index.md 37→38 pages.
